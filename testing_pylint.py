@@ -6,3 +6,5 @@ if __name__ == "__main__":
 
     print("Hello World")
     print(GLOBAL_VARIABLE)
+
+    print('checking pylint workflow ...')
