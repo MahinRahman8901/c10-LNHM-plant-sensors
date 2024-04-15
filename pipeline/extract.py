@@ -1,6 +1,6 @@
-import requests
-import time
+"""Extract Script that scrapes api and returns a csv (runs every minute)"""
 import csv
+import requests
 
 API_URL = 'https://data-eng-plants-api.herokuapp.com/plants/'
 
@@ -38,8 +38,8 @@ def create_csv_file(data: str, filename: str):
     """Creates csv file where all data collated
     from the api is stored and can be viewed"""
     keys = data[0].keys() if data else []
-    with open(filename, 'w', newline='', encoding='utf-8') as f:
-        writer = csv.DictWriter(f, fieldnames=keys)
+    with open(filename, 'w', newline='', encoding='utf-8') as csv_file:
+        writer = csv.DictWriter(csv_file, fieldnames=keys)
         writer.writeheader()
         writer.writerows(data)
 
