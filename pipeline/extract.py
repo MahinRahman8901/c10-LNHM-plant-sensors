@@ -1,5 +1,6 @@
 import requests
 import time
+import csv
 
 API_URL = 'https://data-eng-plants-api.herokuapp.com/plants/'
 
@@ -33,6 +34,16 @@ def extract_plant_data() -> dict:
     return plant_data
 
 
+def create_csv_file(data: str, filename: str):
+    """Creates csv file where all data collated
+    from the api is stored and can be viewed"""
+    keys = data[0].keys() if data else []
+    with open(filename, 'w', newline='', encoding='utf-8') as f:
+        writer = csv.DictWriter(f, fieldnames=keys)
+        writer.writeheader()
+        writer.writerows(data)
+
+
 if __name__ == "__main__":
-    res = extract_plant_data()
-    print(res)
+    data = extract_plant_data()
+    create_csv_file(data, "Plant_Data.csv")
