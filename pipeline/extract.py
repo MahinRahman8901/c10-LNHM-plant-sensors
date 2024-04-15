@@ -1,6 +1,7 @@
 import requests
 import time
 import csv
+import schedule
 
 API_URL = 'https://data-eng-plants-api.herokuapp.com/plants/'
 
@@ -44,6 +45,15 @@ def create_csv_file(data: str, filename: str):
         writer.writerows(data)
 
 
+def job():
+    print("Fetching data...")
+    plant_data = extract_plant_data()
+    create_csv_file(plant_data, 'plants_data.csv')
+
+
 if __name__ == "__main__":
-    data = extract_plant_data()
-    create_csv_file(data, "Plant_Data.csv")
+    schedule.every().minute.do(job)
+
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
