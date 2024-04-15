@@ -8,3 +8,5 @@ if __name__ == "__main__":
     print(GLOBAL_VARIABLE)
 
     print('checking pylint workflow ...')
+
+    print('checking pylint workflow ...')
