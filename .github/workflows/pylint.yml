@@ -28,4 +28,4 @@ jobs:
         pip install pylint
 
     - name: Pylint
-      run: pylint --fail-under=8 
+      run: pylint --fail-under=8 *.py
