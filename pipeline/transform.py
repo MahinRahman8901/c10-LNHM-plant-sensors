@@ -1,3 +1,5 @@
+"""Transform script to clean the data"""
+import logging
 import pandas as pd
 
 CSV = "plants_data.csv"
@@ -42,4 +44,6 @@ def clean_data_from_csv(filename: str):
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
     clean_data_from_csv(CSV)
+    logging.info("Data successfully cleaned.")
