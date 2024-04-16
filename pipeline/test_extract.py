@@ -27,11 +27,12 @@ output_data = [{'id': 2, 'name': 'Corpse flower',
                 'soil_moisture': 27.36278335759782,
                 'temperature': 9.117554081392257,
                 'recording_taken': '2024-04-16 12:21:22',
-                'origin_location': [
-                    'Efon-Alaaye',
-                    'NG',
-                    'Africa/Lagos']}]
-
+                'botanist_name': 'Carl Linnaeus',
+                'botanist_email': 'carl.linnaeus@lnhm.co.uk',
+                'botanist_phone': '(146)994-1635x35992',
+                'origin_location': ['Efon-Alaaye',
+                                    'NG',
+                                    'Africa/Lagos']}]
 
 plant_data = []
 
