@@ -49,4 +49,4 @@ def test_api_call_unsuccessful(requests_mock, capsys):
     extract_data_for_each_plant(2, plant_data)
     captured = capsys.readouterr()
     printed_output = captured.out
-    assert "Could not find plant  2" in printed_output
+    assert "Could not find plant 2" in printed_output
