@@ -1,5 +1,15 @@
 # README
 
+## Pipeline
+
+### Data Extraction Sript
+
+- The `extract.py` script fetches plant data from the provided API endpoint. It retrieves information such as soil moisture, temperature, humidity, and light intensity for each plant and stores it in a CSV file.
+
+### Data Cleaning Script
+
+The `transform.py` script utilises pandas to clean and standardise the data extracted from the CSV file. It rounds numerical values to two decimal places, standardises plant names, separates the origin location into individual columns (town, country code, continent, city), and removes any null values. The cleaned data is then saved back to the CSV file.
+
 ## About
 
 The Liverpool Natural History Museum is expanding its focus to include botanical science with the introduction of a new botanical wing in 2023. To support this initiative, the museum requires a robust system to monitor the health of plants in their conservatory. This GitHub repository documents the development and implementation of the Plant Health Monitoring System.
