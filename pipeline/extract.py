@@ -1,6 +1,8 @@
-import requests
-import csv
+"""Extract script to collect data from plants api"""
 
+import logging
+import csv
+import requests
 
 API_URL = 'https://data-eng-plants-api.herokuapp.com/plants/'
 
@@ -42,7 +44,7 @@ def extract_data_for_each_plant(plant_id, plant_data) -> None:
 
         plant_data.append(data_to_append)
     else:
-        print("Could not find plant ", plant_id)
+        print(f"Could not find plant {plant_id}")
 
 
 def create_csv_file(data: str, filename: str):
@@ -56,10 +58,15 @@ def create_csv_file(data: str, filename: str):
 
 
 def main():
+    """Main function"""
     print("Fetching data...")
     plant_data = extract_plant_data()
+    logging.info(" Successfully collected data")
     create_csv_file(plant_data, 'plants_data.csv')
+    logging.info(" Saved to csv file")
 
 
 if __name__ == "__main__":
+
+    logging.basicConfig(level=logging.INFO)
     main()
