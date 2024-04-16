@@ -28,7 +28,10 @@ def extract_data_for_each_plant(plant_id, plant_data) -> None:
             'name': plant_info.get('name'),
             'soil_moisture': plant_info.get('soil_moisture'),
             'temperature': plant_info.get('temperature'),
-            'recording_taken': plant_info.get('recording_taken')
+            'recording_taken': plant_info.get('recording_taken'),
+            'botanist_name': plant_info['botanist']['name'],
+            'botanist_email': plant_info['botanist']['email'],
+            'botanist_phone': plant_info['botanist']['phone']
         }
 
         if 'light_intensity' in plant_info:
