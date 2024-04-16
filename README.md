@@ -4,7 +4,7 @@
 
 ### Data Extraction Sript
 
-- The `extract.py` script fetches plant data from the provided API endpoint. It retrieves information such as soil moisture, temperature, humidity, and light intensity for each plant and stores it in a CSV file.
+The `extract.py` script fetches plant data from the provided API endpoint. It retrieves information such as soil moisture, temperature, humidity, and light intensity for each plant and stores it in a CSV file.
 
 ### Data Cleaning Script
 
