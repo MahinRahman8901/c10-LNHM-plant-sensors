@@ -43,6 +43,8 @@ def extract_data_for_each_plant(plant_id, plant_data) -> None:
         if 'origin_location' in plant_info:
             origin_location = plant_info['origin_location']
             if len(origin_location) >= 3:
+                data_to_append['latitude'] = origin_location[0]
+                data_to_append['longitude'] = origin_location[1]
                 data_to_append['origin_location'] = origin_location[-3:]
 
         plant_data.append(data_to_append)
