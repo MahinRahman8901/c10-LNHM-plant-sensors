@@ -1,0 +1,5 @@
+schedule
+requests
+pandas
+pymssql
+python-dotenv
