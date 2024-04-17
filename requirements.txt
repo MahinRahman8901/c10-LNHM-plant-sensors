@@ -1,5 +1,7 @@
 schedule
 requests
 pandas
+aiohttp
 pytest
 requests-mock
+

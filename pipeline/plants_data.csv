@@ -47,3 +47,4 @@ id,name,soil_moisture,temperature,last_watered,recording_taken,botanist_name,bot
 48,Zamioculcas Zamiifolia,37.88,14.88,"Tue, 16 Apr 2024 14:31:09 GMT",2024-04-17 08:11:23,Carl Linnaeus,carl.linnaeus@lnhm.co.uk,(146)994-1635x35992,14.15,121.32,Calauan,PH,Asia,Manila
 49,Crassula Ovata,36.49,9.36,"Tue, 16 Apr 2024 14:02:15 GMT",2024-04-17 08:11:25,Eliza Andrews,eliza.andrews@lnhm.co.uk,(846)669-6651x75948,17.95,-94.91,Acayucan,MX,America,Mexico_City
 50,Epipremnum Aureum,36.78,13.14,"Tue, 16 Apr 2024 14:03:04 GMT",2024-04-17 08:11:26,Carl Linnaeus,carl.linnaeus@lnhm.co.uk,(146)994-1635x35992,-19.33,-41.26,Resplendor,BR,America,Sao_Paulo
+
