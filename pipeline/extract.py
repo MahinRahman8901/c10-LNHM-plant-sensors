@@ -56,26 +56,11 @@ async def extract_data_for_each_plant(session, plant_id) -> dict:
             print(f"Could not find plant {plant_id}")
 
 
-def create_csv_file(data: list[dict], filename: str):
-    """Creates CSV file where all data collated from the API is stored"""
-    keys = data[0].keys() if data else []
-    with open(filename, 'w', newline='', encoding='utf-8') as f:
-        writer = csv.DictWriter(f, fieldnames=keys)
-        writer.writeheader()
-        writer.writerows(data)
-
-
 async def main():
     """Main function"""
     print("Fetching data...")
     plant_data = await extract_plant_data()
-    logging.info("Successfully collected data")
-    if plant_data:
-        create_csv_file(plant_data, 'plants_data.csv')
-        logging.info("Saved to CSV file")
-    else:
-        logging.warning("No data found, CSV file not created")
-
+    logging.info("Successfully collected data")\
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)

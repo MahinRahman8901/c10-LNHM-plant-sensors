@@ -1,11 +1,10 @@
-"""Extract script to collect data from plants api"""
+"""Main Pipeline Script"""
 
-import logging
-import csv
 import aiohttp
 import asyncio
-import logging
 import pandas as pd
+import logging
+
 from csv import DictReader
 from datetime import datetime
 from os import environ as ENV
@@ -14,7 +13,18 @@ from pymssql import connect
 
 
 API_URL = 'https://data-eng-plants-api.herokuapp.com/plants/'
-CSV = "plants_data.csv"
+
+
+def get_database_connection(config):
+    '''This function returns a database connection.'''
+
+    return connect(
+        host=config["DB_HOST"],
+        user=config["DB_USER"],
+        password=config["DB_PASSWORD"],
+        database=config["DB_NAME"],
+        port=int(config["DB_PORT"]),
+    )
 
 
 async def extract_plant_data() -> list[dict]:
@@ -65,75 +75,19 @@ async def extract_data_for_each_plant(session, plant_id) -> dict:
             print(f"Could not find plant {plant_id}")
 
 
-def create_csv_file(data: list[dict], filename: str):
-    """Creates CSV file where all data collated from the API is stored"""
-    keys = data[0].keys() if data else []
-    with open(filename, 'w', newline='', encoding='utf-8') as f:
-        writer = csv.DictWriter(f, fieldnames=keys)
-        writer.writeheader()
-        writer.writerows(data)
+def clean_data(plant_data: list[dict]) -> list[dict]:
+    """Cleans the plant data"""
 
+    # Convert numerical values to float and round to 2 decimal places
+    for plant in plant_data:
+        plant['soil_moisture'] = round(float(plant['soil_moisture']), 2)
+        plant['temperature'] = round(float(plant['temperature']), 2)
 
-async def main():
-    """Main function"""
-    print("Fetching data...")
-    plant_data = await extract_plant_data()
-    logging.info("Successfully collected data")
-    if plant_data:
-        create_csv_file(plant_data, 'plants_data.csv')
-        logging.info("Saved to CSV file")
-    else:
-        logging.warning("No data found, CSV file not created")
+    # Make name consistent and remove punctuation
+    for plant in plant_data:
+        plant['name'] = plant['name'].title().replace(r'[^\w\s]', '')
 
-
-def clean_data_from_csv(filename: str):
-    """Uses pandas to clean and make all values consistent
-    in the csv file"""
-
-    plant_df = pd.read_csv(filename)
-
-    plant_df['origin_location'] = plant_df['origin_location'].apply(eval)
-
-    # Round numerical values to 2 decimal places
-    plant_float_columns = plant_df.select_dtypes(include=['float64']).columns
-    plant_df[plant_float_columns] = plant_df[plant_float_columns].round(2)
-
-    # Makes name value consistent and gets rid of punctuation
-    plant_df['name'] = plant_df['name'].str.title().str.replace(r'[^\w\s]', '')
-
-    # Ensure each location has 4 elements (town, country_code, continent, city)
-    plant_df['origin_location'] = plant_df['origin_location'].apply(
-        lambda x: x + [None] * (4 - len(x)) if len(x) < 4 else x[:4])
-
-    # Split the origin location into town, country_code, continent, and city
-    origin_df = pd.DataFrame(plant_df['origin_location'].tolist(), columns=[
-                             'town', 'country_code', 'continent', 'city'])
-
-    # Split the continent values at '/' and put them in the city column
-    origin_df['city'] = origin_df['continent'].apply(
-        lambda x: x.split('/')[-1])
-    origin_df['continent'] = origin_df['continent'].apply(
-        lambda x: x.split('/')[0])
-
-    plant_df = pd.concat([plant_df, origin_df], axis=1)
-
-    # Drop the original origin_location column
-    plant_df.drop(columns=['origin_location'], inplace=True)
-
-    # Save the cleaned data to a new CSV file
-    plant_df.to_csv(filename, index=False)
-
-
-def get_database_connection(config):
-    '''This function returns a database connection.'''
-
-    return connect(
-        host=config["DB_HOST"],
-        user=config["DB_USER"],
-        password=config["DB_PASSWORD"],
-        database=config["DB_NAME"],
-        port=int(config["DB_PORT"]),
-    )
+    return plant_data
 
 
 def get_botanist_id_dictionary(conn) -> dict:
@@ -148,19 +102,6 @@ def get_botanist_id_dictionary(conn) -> dict:
         for row in cursor:
             botanist_dict[row['Email']] = row['BotanistID']
     return botanist_dict
-
-
-def read_csv(csv_file_path: str) -> list[dict[str]]:
-    '''This function reads a csv file and outputs a list of dictionaries - 
-     Each dictionary corresponds to a row in the csv file where the keys are
-     the elements in the first row of the file.
-     Example: {'gertrude.jekyll@lnhm.co.uk': 1, 'carl.linnaeus@lnhm.co.uk': 2,
-       'eliza.andrews@lnhm.co.uk': 3}'''
-    with open(csv_file_path, 'r') as f:
-        data = DictReader(f)
-        data_list = list(data)
-
-    return data_list
 
 
 def db_query_string(data: list[dict], conn) -> str:
@@ -195,26 +136,32 @@ def db_inserting_data(query_string: str, conn) -> None:
         conn.commit()
 
 
-if __name__ == "__main__":
-
-    load_dotenv()
+async def main():
+    """Main function"""
 
     # Extract
-    logging.basicConfig(level=logging.INFO)
-    asyncio.run(main())
+    print("Fetching data...")
+    plant_data = await extract_plant_data()
+    logging.info("Successfully collected data")
+    print("--- Collecting Data ---")
 
     # Transform
-    logging.basicConfig(level=logging.INFO)
-    clean_data_from_csv(CSV)
-    logging.info("Data successfully cleaned.")
+    cleaned_data = clean_data(plant_data)
+    logging.info("Data successfully cleaned")
+    print("--- Cleaning Data ---")
+
+    # Connect
+    connection = get_database_connection(ENV)
+    logging.info("Connected to the database")
+    print("--- Connecting to Database ---")
 
     # Load
-    connection = get_database_connection(ENV)
-    print('--- CONNECTED TO DATABASE ---')
+    query_string = db_query_string(cleaned_data, connection)
+    db_inserting_data(query_string, connection)
+    logging.info("Data inserted into the database")
+    print("--- Inserting into Database ---")
 
-    # data from csv as list of dictionaries
-    plant_data = read_csv("plants_data.csv")
-    # the values section of the insert query string
-    insert_query_string = db_query_string(plant_data, connection)
-    db_inserting_data(insert_query_string, connection)
-    print('--- INSERTED INTO DATABASE ---')
+if __name__ == "__main__":
+    load_dotenv()
+    logging.basicConfig(level=logging.INFO)
+    asyncio.run(main())
