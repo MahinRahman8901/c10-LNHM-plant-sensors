@@ -2,3 +2,4 @@ schedule
 requests
 pandas
 PyMySQL
+python-dotenv
