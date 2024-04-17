@@ -1,49 +1,47 @@
 id,name,soil_moisture,temperature,recording_taken,botanist_name,botanist_email,botanist_phone,latitude,longitude,town,country_code,continent,city
-1,Venus Flytrap,95.7,12.02,2024-04-16 15:07:24,Gertrude Jekyll,gertrude.jekyll@lnhm.co.uk,001-481-273-3691x127,33.95,-118.04,South Whittier,US,America,Los_Angeles
-2,Corpse Flower,96.91,9.1,2024-04-16 15:07:24,Carl Linnaeus,carl.linnaeus@lnhm.co.uk,(146)994-1635x35992,7.66,4.92,Efon-Alaaye,NG,Africa,Lagos
-3,Rafflesia Arnoldii,99.01,9.97,2024-04-16 15:07:25,Eliza Andrews,eliza.andrews@lnhm.co.uk,(846)669-6651x75948,-19.33,-41.26,Resplendor,BR,America,Sao_Paulo
-4,Black Bat Flower,93.38,11.31,2024-04-16 15:07:26,Carl Linnaeus,carl.linnaeus@lnhm.co.uk,(146)994-1635x35992,13.7,-89.11,Ilopango,SV,America,El_Salvador
-5,Pitcher Plant,99.37,11.16,2024-04-16 15:07:26,Carl Linnaeus,carl.linnaeus@lnhm.co.uk,(146)994-1635x35992,22.89,84.14,Jashpurnagar,IN,Asia,Kolkata
-6,Wollemi Pine,94.89,10.95,2024-04-16 15:07:28,Eliza Andrews,eliza.andrews@lnhm.co.uk,(846)669-6651x75948,43.87,-79.27,Markham,CA,America,Toronto
-8,Bird Of Paradise,93.77,11.5,2024-04-16 15:07:29,Eliza Andrews,eliza.andrews@lnhm.co.uk,(846)669-6651x75948,5.27,-3.6,Bonoua,CI,Africa,Abidjan
-9,Cactus,96.82,10.58,2024-04-16 15:07:31,Gertrude Jekyll,gertrude.jekyll@lnhm.co.uk,001-481-273-3691x127,50.98,11.33,Weimar,DE,Europe,Berlin
-10,Dragon Tree,92.91,13.94,2024-04-16 15:07:32,Gertrude Jekyll,gertrude.jekyll@lnhm.co.uk,001-481-273-3691x127,43.51,16.44,Split,HR,Europe,Zagreb
-11,Asclepias Curassavica,94.93,9.44,2024-04-16 15:07:33,Gertrude Jekyll,gertrude.jekyll@lnhm.co.uk,001-481-273-3691x127,20.89,-156.47,Kahului,US,Pacific,Honolulu
-12,Brugmansia X Candida,93.3,12.77,2024-04-16 15:07:34,Eliza Andrews,eliza.andrews@lnhm.co.uk,(846)669-6651x75948,32.5,-94.74,Longview,US,America,Chicago
-13,Canna Striata,95.01,9.5,2024-04-16 15:07:35,Eliza Andrews,eliza.andrews@lnhm.co.uk,(846)669-6651x75948,49.68,8.62,Bensheim,DE,Europe,Berlin
-14,Colocasia Esculenta,97.19,16.06,2024-04-16 15:07:36,Gertrude Jekyll,gertrude.jekyll@lnhm.co.uk,001-481-273-3691x127,29.65,-82.32,Gainesville,US,America,New_York
-15,Cuphea David Verity,95.17,9.96,2024-04-16 15:07:37,Gertrude Jekyll,gertrude.jekyll@lnhm.co.uk,001-481-273-3691x127,36.08,9.37,Siliana,TN,Africa,Tunis
-16,Euphorbia Cotinifolia,93.4,13.27,2024-04-16 15:07:38,Gertrude Jekyll,gertrude.jekyll@lnhm.co.uk,001-481-273-3691x127,40.93,-73.9,Yonkers,US,America,New_York
-17,Ipomoea Batatas,96.22,9.75,2024-04-16 15:07:39,Carl Linnaeus,carl.linnaeus@lnhm.co.uk,(146)994-1635x35992,-7.52,109.05,Wangon,ID,Asia,Jakarta
-18,Manihot Esculenta Variegata,97.79,9.0,2024-04-16 15:07:40,Carl Linnaeus,carl.linnaeus@lnhm.co.uk,(146)994-1635x35992,51.3,13.11,Oschatz,DE,Europe,Berlin
-19,Musa Basjoo,94.23,13.85,2024-04-16 15:07:41,Gertrude Jekyll,gertrude.jekyll@lnhm.co.uk,001-481-273-3691x127,-21.44,27.46,Tonota,BW,Africa,Gaborone
-20,Salvia Splendens,98.94,8.57,2024-04-16 15:07:42,Carl Linnaeus,carl.linnaeus@lnhm.co.uk,(146)994-1635x35992,41.16,1.11,Reus,ES,Europe,Madrid
-21,Anthurium,97.51,11.0,2024-04-16 15:07:42,Eliza Andrews,eliza.andrews@lnhm.co.uk,(846)669-6651x75948,-29.3,-51.5,Carlos Barbosa,BR,America,Sao_Paulo
-22,Bird Of Paradise,92.73,9.53,2024-04-16 15:07:44,Gertrude Jekyll,gertrude.jekyll@lnhm.co.uk,001-481-273-3691x127,48.36,10.98,Friedberg,DE,Europe,Berlin
-23,Cordyline Fruticosa,99.37,11.39,2024-04-16 15:07:45,Eliza Andrews,eliza.andrews@lnhm.co.uk,(846)669-6651x75948,52.53,13.29,Charlottenburg-Nord,DE,Europe,Berlin
-24,Ficus,98.58,13.04,2024-04-16 15:07:47,Carl Linnaeus,carl.linnaeus@lnhm.co.uk,(146)994-1635x35992,43.83,144.1,Motomachi,JP,Asia,Tokyo
-25,Palm Trees,96.09,11.58,2024-04-16 15:07:47,Gertrude Jekyll,gertrude.jekyll@lnhm.co.uk,001-481-273-3691x127,11.87,34.39,Ar Ruseris,SD,Africa,Khartoum
-26,Dieffenbachia Seguine,97.54,14.14,2024-04-16 15:07:48,Carl Linnaeus,carl.linnaeus@lnhm.co.uk,(146)994-1635x35992,36.06,4.63,El Achir,DZ,Africa,Algiers
-27,Spathiphyllum,99.46,10.74,2024-04-16 15:07:49,Carl Linnaeus,carl.linnaeus@lnhm.co.uk,(146)994-1635x35992,51.68,33.92,Hlukhiv,UA,Europe,Kiev
-28,Croton,98.15,12.4,2024-04-16 15:07:50,Carl Linnaeus,carl.linnaeus@lnhm.co.uk,(146)994-1635x35992,43.91,-69.97,Brunswick,US,America,New_York
-29,Aloe Vera,93.46,10.81,2024-04-16 15:07:52,Gertrude Jekyll,gertrude.jekyll@lnhm.co.uk,001-481-273-3691x127,34.76,136.13,Ueno-ebisumachi,JP,Asia,Tokyo
-30,Ficus Elastica,95.99,14.49,2024-04-16 15:07:52,Carl Linnaeus,carl.linnaeus@lnhm.co.uk,(146)994-1635x35992,30.76,20.23,Ajdabiya,LY,Africa,Tripoli
-31,Sansevieria Trifasciata,92.95,13.34,2024-04-16 15:07:53,Gertrude Jekyll,gertrude.jekyll@lnhm.co.uk,001-481-273-3691x127,23.3,113.82,Licheng,CN,Asia,Shanghai
-32,Philodendron Hederaceum,97.73,10.59,2024-04-16 15:07:54,Gertrude Jekyll,gertrude.jekyll@lnhm.co.uk,001-481-273-3691x127,52.48,10.55,Gifhorn,DE,Europe,Berlin
-33,Schefflera Arboricola,96.39,13.52,2024-04-16 15:07:55,Carl Linnaeus,carl.linnaeus@lnhm.co.uk,(146)994-1635x35992,28.93,78.23,Bachhraon,IN,Asia,Kolkata
-34,Aglaonema Commutatum,95.11,13.39,2024-04-16 15:07:56,Gertrude Jekyll,gertrude.jekyll@lnhm.co.uk,001-481-273-3691x127,41.16,1.11,Reus,ES,Europe,Madrid
-35,Monstera Deliciosa,94.36,12.9,2024-04-16 15:07:57,Carl Linnaeus,carl.linnaeus@lnhm.co.uk,(146)994-1635x35992,-32.45,-71.23,La Ligua,CL,America,Santiago
-36,Tacca Integrifolia,96.73,12.28,2024-04-16 15:07:57,Gertrude Jekyll,gertrude.jekyll@lnhm.co.uk,001-481-273-3691x127,32.54,-82.9,Dublin,US,America,New_York
-37,Psychopsis Papilio,97.47,11.07,2024-04-16 15:07:57,Eliza Andrews,eliza.andrews@lnhm.co.uk,(846)669-6651x75948,30.21,74.48,Malaut,IN,Asia,Kolkata
-38,Saintpaulia Ionantha,95.43,11.05,2024-04-16 15:07:58,Gertrude Jekyll,gertrude.jekyll@lnhm.co.uk,001-481-273-3691x127,-6.8,39.25,Magomeni,TZ,Africa,Dar_es_Salaam
-39,Gaillardia,97.04,13.38,2024-04-16 15:07:59,Carl Linnaeus,carl.linnaeus@lnhm.co.uk,(146)994-1635x35992,36.25,139.07,Fujioka,JP,Asia,Tokyo
-40,Amaryllis,96.54,9.06,2024-04-16 15:08:00,Eliza Andrews,eliza.andrews@lnhm.co.uk,(846)669-6651x75948,44.93,4.9,Valence,FR,Europe,Paris
-41,Caladium Bicolor,95.35,22.71,2024-04-16 15:08:19,Carl Linnaeus,carl.linnaeus@lnhm.co.uk,(146)994-1635x35992,22.47,88.15,Pujali,IN,Asia,Kolkata
-42,Chlorophytum Comosum,98.92,9.85,2024-04-16 15:08:20,Carl Linnaeus,carl.linnaeus@lnhm.co.uk,(146)994-1635x35992,41.57,24.71,Smolyan,BG,Europe,Sofia
-44,Araucaria Heterophylla,94.53,9.55,2024-04-16 15:08:21,Gertrude Jekyll,gertrude.jekyll@lnhm.co.uk,001-481-273-3691x127,20.23,-103.57,Zacoalco de Torres,MX,America,Mexico_City
-45,Begonia,96.29,8.98,2024-04-16 15:08:22,Gertrude Jekyll,gertrude.jekyll@lnhm.co.uk,001-481-273-3691x127,33.95,-118.04,South Whittier,US,America,Los_Angeles
-46,Medinilla Magnifica,96.92,13.29,2024-04-16 15:08:23,Eliza Andrews,eliza.andrews@lnhm.co.uk,(846)669-6651x75948,-13.78,34.46,Salima,MW,Africa,Blantyre
-47,Calliandra Haematocephala,91.59,13.33,2024-04-16 15:08:24,Eliza Andrews,eliza.andrews@lnhm.co.uk,(846)669-6651x75948,37.49,15.07,Catania,IT,Europe,Rome
-48,Zamioculcas Zamiifolia,97.82,14.88,2024-04-16 15:08:25,Carl Linnaeus,carl.linnaeus@lnhm.co.uk,(146)994-1635x35992,14.15,121.32,Calauan,PH,Asia,Manila
-49,Crassula Ovata,96.14,9.36,2024-04-16 15:08:27,Eliza Andrews,eliza.andrews@lnhm.co.uk,(846)669-6651x75948,17.95,-94.91,Acayucan,MX,America,Mexico_City
-50,Epipremnum Aureum,96.18,13.14,2024-04-16 15:08:45,Carl Linnaeus,carl.linnaeus@lnhm.co.uk,(146)994-1635x35992,-19.33,-41.26,Resplendor,BR,America,Sao_Paulo
+1,Venus Flytrap,32.48,12.06,2024-04-17 08:57:49,Gertrude Jekyll,gertrude.jekyll@lnhm.co.uk,001-481-273-3691x127,33.95,-118.04,South Whittier,US,America,Los_Angeles
+2,Corpse Flower,38.48,9.22,2024-04-17 08:57:47,Carl Linnaeus,carl.linnaeus@lnhm.co.uk,(146)994-1635x35992,7.66,4.92,Efon-Alaaye,NG,Africa,Lagos
+3,Rafflesia Arnoldii,37.32,13.27,2024-04-17 08:57:48,Eliza Andrews,eliza.andrews@lnhm.co.uk,(846)669-6651x75948,-19.33,-41.26,Resplendor,BR,America,Sao_Paulo
+4,Black Bat Flower,29.54,11.37,2024-04-17 08:57:49,Carl Linnaeus,carl.linnaeus@lnhm.co.uk,(146)994-1635x35992,13.7,-89.11,Ilopango,SV,America,El_Salvador
+5,Pitcher Plant,38.61,11.25,2024-04-17 08:57:51,Carl Linnaeus,carl.linnaeus@lnhm.co.uk,(146)994-1635x35992,22.89,84.14,Jashpurnagar,IN,Asia,Kolkata
+6,Wollemi Pine,35.37,11.01,2024-04-17 08:57:50,Eliza Andrews,eliza.andrews@lnhm.co.uk,(846)669-6651x75948,43.87,-79.27,Markham,CA,America,Toronto
+8,Bird Of Paradise,29.93,11.6,2024-04-17 08:57:48,Eliza Andrews,eliza.andrews@lnhm.co.uk,(846)669-6651x75948,5.27,-3.6,Bonoua,CI,Africa,Abidjan
+9,Cactus,34.77,10.64,2024-04-17 08:57:53,Gertrude Jekyll,gertrude.jekyll@lnhm.co.uk,001-481-273-3691x127,50.98,11.33,Weimar,DE,Europe,Berlin
+10,Dragon Tree,30.98,13.98,2024-04-17 08:57:50,Gertrude Jekyll,gertrude.jekyll@lnhm.co.uk,001-481-273-3691x127,43.51,16.44,Split,HR,Europe,Zagreb
+11,Asclepias Curassavica,34.8,9.52,2024-04-17 08:57:54,Gertrude Jekyll,gertrude.jekyll@lnhm.co.uk,001-481-273-3691x127,20.89,-156.47,Kahului,US,Pacific,Honolulu
+12,Brugmansia X Candida,30.21,12.89,2024-04-17 08:57:52,Eliza Andrews,eliza.andrews@lnhm.co.uk,(846)669-6651x75948,32.5,-94.74,Longview,US,America,Chicago
+13,Canna Striata,36.14,9.61,2024-04-17 08:57:56,Eliza Andrews,eliza.andrews@lnhm.co.uk,(846)669-6651x75948,49.68,8.62,Bensheim,DE,Europe,Berlin
+14,Colocasia Esculenta,36.78,13.23,2024-04-17 08:57:51,Gertrude Jekyll,gertrude.jekyll@lnhm.co.uk,001-481-273-3691x127,29.65,-82.32,Gainesville,US,America,New_York
+15,Cuphea David Verity,32.21,10.03,2024-04-17 08:57:52,Gertrude Jekyll,gertrude.jekyll@lnhm.co.uk,001-481-273-3691x127,36.08,9.37,Siliana,TN,Africa,Tunis
+16,Euphorbia Cotinifolia,1.67,13.34,2024-04-17 08:57:53,Gertrude Jekyll,gertrude.jekyll@lnhm.co.uk,001-481-273-3691x127,40.93,-73.9,Yonkers,US,America,New_York
+17,Ipomoea Batatas,33.93,9.85,2024-04-17 08:58:00,Carl Linnaeus,carl.linnaeus@lnhm.co.uk,(146)994-1635x35992,-7.52,109.05,Wangon,ID,Asia,Jakarta
+18,Manihot Esculenta Variegata,35.44,9.12,2024-04-17 08:57:57,Carl Linnaeus,carl.linnaeus@lnhm.co.uk,(146)994-1635x35992,51.3,13.11,Oschatz,DE,Europe,Berlin
+19,Musa Basjoo,34.38,13.9,2024-04-17 08:58:02,Gertrude Jekyll,gertrude.jekyll@lnhm.co.uk,001-481-273-3691x127,-21.44,27.46,Tonota,BW,Africa,Gaborone
+20,Salvia Splendens,36.16,8.68,2024-04-17 08:58:06,Carl Linnaeus,carl.linnaeus@lnhm.co.uk,(146)994-1635x35992,41.16,1.11,Reus,ES,Europe,Madrid
+21,Anthurium,36.53,11.08,2024-04-17 08:57:57,Eliza Andrews,eliza.andrews@lnhm.co.uk,(846)669-6651x75948,-29.3,-51.5,Carlos Barbosa,BR,America,Sao_Paulo
+22,Bird Of Paradise,30.14,9.6,2024-04-17 08:58:00,Gertrude Jekyll,gertrude.jekyll@lnhm.co.uk,001-481-273-3691x127,48.36,10.98,Friedberg,DE,Europe,Berlin
+23,Cordyline Fruticosa,37.74,11.49,2024-04-17 08:58:00,Eliza Andrews,eliza.andrews@lnhm.co.uk,(846)669-6651x75948,52.53,13.29,Charlottenburg-Nord,DE,Europe,Berlin
+24,Ficus,34.69,13.1,2024-04-17 08:57:59,Carl Linnaeus,carl.linnaeus@lnhm.co.uk,(146)994-1635x35992,43.83,144.1,Motomachi,JP,Asia,Tokyo
+26,Dieffenbachia Seguine,38.47,14.19,2024-04-17 08:57:58,Carl Linnaeus,carl.linnaeus@lnhm.co.uk,(146)994-1635x35992,36.06,4.63,El Achir,DZ,Africa,Algiers
+27,Spathiphyllum,38.25,10.8,2024-04-17 08:57:54,Carl Linnaeus,carl.linnaeus@lnhm.co.uk,(146)994-1635x35992,51.68,33.92,Hlukhiv,UA,Europe,Kiev
+28,Croton,34.01,12.44,2024-04-17 08:57:53,Carl Linnaeus,carl.linnaeus@lnhm.co.uk,(146)994-1635x35992,43.91,-69.97,Brunswick,US,America,New_York
+29,Aloe Vera,33.4,10.92,2024-04-17 08:57:54,Gertrude Jekyll,gertrude.jekyll@lnhm.co.uk,001-481-273-3691x127,34.76,136.13,Ueno-ebisumachi,JP,Asia,Tokyo
+30,Ficus Elastica,36.87,14.55,2024-04-17 08:57:55,Carl Linnaeus,carl.linnaeus@lnhm.co.uk,(146)994-1635x35992,30.76,20.23,Ajdabiya,LY,Africa,Tripoli
+31,Sansevieria Trifasciata,31.22,13.41,2024-04-17 08:57:56,Gertrude Jekyll,gertrude.jekyll@lnhm.co.uk,001-481-273-3691x127,23.3,113.82,Licheng,CN,Asia,Shanghai
+32,Philodendron Hederaceum,33.91,10.64,2024-04-17 08:57:59,Gertrude Jekyll,gertrude.jekyll@lnhm.co.uk,001-481-273-3691x127,52.48,10.55,Gifhorn,DE,Europe,Berlin
+33,Schefflera Arboricola,34.06,13.61,2024-04-17 08:57:58,Carl Linnaeus,carl.linnaeus@lnhm.co.uk,(146)994-1635x35992,28.93,78.23,Bachhraon,IN,Asia,Kolkata
+34,Aglaonema Commutatum,32.53,13.47,2024-04-17 08:58:03,Gertrude Jekyll,gertrude.jekyll@lnhm.co.uk,001-481-273-3691x127,41.16,1.11,Reus,ES,Europe,Madrid
+35,Monstera Deliciosa,30.98,13.01,2024-04-17 08:57:59,Carl Linnaeus,carl.linnaeus@lnhm.co.uk,(146)994-1635x35992,-32.45,-71.23,La Ligua,CL,America,Santiago
+36,Tacca Integrifolia,36.39,12.38,2024-04-17 08:57:55,Gertrude Jekyll,gertrude.jekyll@lnhm.co.uk,001-481-273-3691x127,32.54,-82.9,Dublin,US,America,New_York
+38,Saintpaulia Ionantha,35.71,11.12,2024-04-17 08:58:01,Gertrude Jekyll,gertrude.jekyll@lnhm.co.uk,001-481-273-3691x127,-6.8,39.25,Magomeni,TZ,Africa,Dar_es_Salaam
+39,Gaillardia,33.16,13.46,2024-04-17 08:57:59,Carl Linnaeus,carl.linnaeus@lnhm.co.uk,(146)994-1635x35992,36.25,139.07,Fujioka,JP,Asia,Tokyo
+40,Amaryllis,37.2,9.16,2024-04-17 08:58:05,Eliza Andrews,eliza.andrews@lnhm.co.uk,(846)669-6651x75948,44.93,4.9,Valence,FR,Europe,Paris
+41,Caladium Bicolor,35.48,28.02,2024-04-17 08:58:01,Carl Linnaeus,carl.linnaeus@lnhm.co.uk,(146)994-1635x35992,22.47,88.15,Pujali,IN,Asia,Kolkata
+42,Chlorophytum Comosum,36.97,9.91,2024-04-17 08:58:03,Carl Linnaeus,carl.linnaeus@lnhm.co.uk,(146)994-1635x35992,41.57,24.71,Smolyan,BG,Europe,Sofia
+44,Araucaria Heterophylla,33.35,9.63,2024-04-17 08:57:58,Gertrude Jekyll,gertrude.jekyll@lnhm.co.uk,001-481-273-3691x127,20.23,-103.57,Zacoalco de Torres,MX,America,Mexico_City
+45,Begonia,34.22,9.09,2024-04-17 08:58:03,Gertrude Jekyll,gertrude.jekyll@lnhm.co.uk,001-481-273-3691x127,33.95,-118.04,South Whittier,US,America,Los_Angeles
+46,Medinilla Magnifica,37.82,13.39,2024-04-17 08:58:05,Eliza Andrews,eliza.andrews@lnhm.co.uk,(846)669-6651x75948,-13.78,34.46,Salima,MW,Africa,Blantyre
+47,Calliandra Haematocephala,-0.09,13.38,2024-04-17 08:58:04,Eliza Andrews,eliza.andrews@lnhm.co.uk,(846)669-6651x75948,37.49,15.07,Catania,IT,Europe,Rome
+48,Zamioculcas Zamiifolia,35.14,14.93,2024-04-17 08:58:05,Carl Linnaeus,carl.linnaeus@lnhm.co.uk,(146)994-1635x35992,14.15,121.32,Calauan,PH,Asia,Manila
+49,Crassula Ovata,33.77,9.47,2024-04-17 08:58:04,Eliza Andrews,eliza.andrews@lnhm.co.uk,(846)669-6651x75948,17.95,-94.91,Acayucan,MX,America,Mexico_City
+50,Epipremnum Aureum,34.08,13.23,2024-04-17 08:58:03,Carl Linnaeus,carl.linnaeus@lnhm.co.uk,(146)994-1635x35992,-19.33,-41.26,Resplendor,BR,America,Sao_Paulo
