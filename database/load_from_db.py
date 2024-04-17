@@ -11,11 +11,16 @@ from dotenv import load_dotenv
 from pymssql import connect
 from boto3 import client
 
-UTC_NOW = utc_now = datetime.datetime.now(pytz.utc)
-CURRENT_TIMESTAMP = utc_now.astimezone(pytz.timezone(
-    'Europe/London')).strftime('%Y-%m-%d %H:%M:%S')
+UTC_NOW = datetime.datetime.now(pytz.utc)
+CURRENT_TIMESTAMP = UTC_NOW.astimezone(pytz.timezone('Europe/London'))
+FORMATTED_TIMESTAMP = CURRENT_TIMESTAMP.strftime('%H:%M:%S')
+
+year = CURRENT_TIMESTAMP.strftime('%Y')
+month = CURRENT_TIMESTAMP.strftime('%m')
+day = CURRENT_TIMESTAMP.strftime('%d')
 BUCKET = 'permian-triassic'
-OBJ_NAME = f'data_{CURRENT_TIMESTAMP}'
+
+OBJ_NAME = f'{year}/{month}/{day}/{FORMATTED_TIMESTAMP}'
 
 
 def handler(event, context) -> dict:
@@ -48,8 +53,23 @@ def load_data(config):
     conn = get_db_connection(config)
     with conn.cursor() as cur:
         cur.execute(
-            """SELECT * FROM s_epsilon.PlantMeasurementRecord \
-                WHERE TimeRecorded < DATEADD(hour, -24, GETDATE());""")
+            """SELECT PMR.*,
+       Bot.FirstName AS BotanistFirstName,
+       Bot.LastName AS BotanistLastName,
+       Bot.Email AS BotanistEmail,
+       Bot.Phone AS BotanistPhone,
+       Plant.Name AS PlantName,
+       Loc.Longitude,
+       Loc.Latitude,
+       Loc.Town,
+       Loc.City,
+       Loc.CountryCode,
+       Loc.Continent
+FROM s_epsilon.PlantMeasurementRecord PMR
+JOIN s_epsilon.Botanist Bot ON PMR.BotanistID = Bot.BotanistID
+JOIN s_epsilon.Plant Plant ON PMR.PlantID = Plant.PlantID
+JOIN s_epsilon.Location Loc ON Plant.LocationID = Loc.LocationID
+WHERE PMR.TimeRecorded < DATEADD(hour, -24, GETDATE());""")
         data = cur.fetchall()
         conn.close()
         return data
@@ -96,7 +116,7 @@ def main():
     old_data = load_data(ENV)
     logging.info(" Loaded old data from database")
 
-    csv_file = f'data_{CURRENT_TIMESTAMP}.csv'
+    csv_file = f'data_{FORMATTED_TIMESTAMP}.csv'
 
     if old_data:
         convert_to_csv(old_data, csv_file)
