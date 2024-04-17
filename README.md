@@ -10,6 +10,23 @@ The `extract.py` script fetches plant data from the provided API endpoint. It re
 
 The `transform.py` script utilises pandas to clean and standardise the data extracted from the CSV file. It rounds numerical values to two decimal places, standardises plant names, separates the origin location into individual columns (town, country code, continent, city), and removes any null values. The cleaned data is then saved back to the CSV file.
 
+## BASH Database Scripts
+
+We have also implemented bash scripts in order to simplify and automate connection and manipulation of the database. These will, however, depend on the Environemental Variables. Therefore, make sure that you have a .env file with the correct values for each variable within the file. in order to run these files within the terminal you need to exectute `bash [.sh script]`
+
+### Connection
+
+For this we have a `connect.sh` which connects us directly to the database by running the command.
+
+### Table Creation
+
+For this we have a `create_tables.sh` that runs the `schema.sql` into the database itself and adds all the tables with its corrosponding keys.
+
+### Seeding Data
+
+For this we have a `seed_data.sh` which will run the `seed.sql` script into the database, therefore inserting all the static data into the tables within the database as well.
+
+
 ## About
 
 The Liverpool Natural History Museum is expanding its focus to include botanical science with the introduction of a new botanical wing in 2023. To support this initiative, the museum requires a robust system to monitor the health of plants in their conservatory. This GitHub repository documents the development and implementation of the Plant Health Monitoring System.
@@ -48,7 +65,15 @@ The museum has invested in an array of sensors connected to a Raspberry Pi to mo
 - Graphical representation of temperature and moisture readings for each plant.
 - Access to historical data stored in long-term storage.
 
+## Diagrams 
 
+### ERD Diagram
+
+![ERD Diagram](https://github.com/MahinRahman8901/c10-LNHM-plant-sensors/blob/main/images/ERD.png?raw=true)
+
+### System Architecture Diagram
+
+![System Architecture Diagram](https://github.com/MahinRahman8901/c10-LNHM-plant-sensors/blob/main/images/System%20Architecture.png?raw=true)
 
 
 To contribute to the project, follow these steps:

@@ -3,3 +3,6 @@ requests
 pandas
 pymssql
 python-dotenv
+aiohttp
+pytest
+requests-mock
