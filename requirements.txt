@@ -1,3 +1,5 @@
 schedule
 requests
 pandas
+pytest
+requests-mock
