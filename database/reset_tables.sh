@@ -1,0 +1,2 @@
+source .env
+sqlcmd -S $DB_HOST -U $DB_USER -P $DB_PASSWORD -d $DB_NAME -Q "DELETE FROM s_epsilon.PlantMeasurementRecord; DELETE FROM s_epsilon.Location; DELETE FROM s_epsilon.Plant; DELETE FROM s_epsilon.Botanist;"
