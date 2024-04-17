@@ -84,19 +84,15 @@ if __name__ == "__main__":
 
     print('before connection')
     # connects to database
-    conn = get_database_connection(ENV)
+    connection = get_database_connection(ENV)
     print('after connection')
- 
+
     # data from csv as list of dictionaries
-    data = read_csv("plants_data.csv")
- 
+    plant_data = read_csv("plants_data.csv")
+
     # the values section of the insert query string
-    query_string = db_query_string(data, conn)
+    insert_query_string = db_query_string(plant_data, connection)
 
     print('before inserting into db')
-    db_inserting_data(query_string, conn)
+    db_inserting_data(insert_query_string, connection)
     print('after inserting into db')
-
-
-    
-
