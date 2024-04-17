@@ -6,3 +6,4 @@ python-dotenv
 aiohttp
 pytest
 requests-mock
+boto3
