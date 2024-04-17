@@ -28,6 +28,7 @@ def extract_data_for_each_plant(plant_id, plant_data) -> None:
             'name': plant_info.get('name'),
             'soil_moisture': plant_info.get('soil_moisture'),
             'temperature': plant_info.get('temperature'),
+            'last_watered': plant_info.get('last_watered'),
             'recording_taken': plant_info.get('recording_taken'),
             'botanist_name': plant_info['botanist']['name'],
             'botanist_email': plant_info['botanist']['email'],
