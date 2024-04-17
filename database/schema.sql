@@ -17,12 +17,12 @@ CREATE TABLE s_epsilon.Location(
     Latitude DECIMAL (11,6) NOT NULL,
     Town varchar(50) NOT NULL,
     City varchar(50) NOT NULL,
-    CountryCode varchar(50) NOT NULL UNIQUE,
+    CountryCode varchar(50) NOT NULL,
     Continent varchar(15) NOT NULL
 );
 
 CREATE TABLE s_epsilon.Plant(
-    PlantID INT IDENTITY(1,1) PRIMARY KEY,
+    PlantID INT PRIMARY KEY,
     Name varchar(50) NOT NULL,
     ScientificName varchar(50),
     LocationID INT FOREIGN KEY REFERENCES s_epsilon.Location(LocationID) NOT NULL,
