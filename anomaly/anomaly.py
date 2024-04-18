@@ -4,6 +4,7 @@ import boto3
 import datetime
 from decimal import Decimal
 
+import boto3
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from os import environ as ENV
@@ -146,7 +147,7 @@ def email_html(anomaly_data: list[dict]) -> str:
             </head>
             <body>
                 <h1>Anomaly Table</h1>
-                <p>Here is a table of measurement anomalies of the plants in the last hour  ({datetime.datetime.strftime(current_datetime, "%H:%M:%S")} to {datetime.datetime.strftime(one_hour_ago, "%H:%M:%S")}).</p>
+                <p>Here is a table of measurement anomalies of the plants in the last hour  ({datetime.datetime.strftime(one_hour_ago, "%H:%M:%S")} to {datetime.datetime.strftime(current_datetime, "%H:%M:%S")}).</p>
  
                 <table>
                     <tr>
@@ -196,19 +197,37 @@ if __name__ == "__main__":
 
     conn.close()
 
-    """
-    TO DO :
+    import boto3
 
-    - CREATE FUNCTION THAT RETURNS DICTIONARY {Plant_id: plant_name}
+    # Create SES client
+    ses = boto3.client('ses')
 
-     - FORMAT EMAIL WITH INFORMATION:
-         - TITLE / HEADER
-         - TABLE
-            - 50 ROWS (FOR EACH PLANT) ORDERED BY MOST ANOMALIES (IN PAST HOUR)
-            - 5 COLUMNS: PLANT ID, PLANT NAME, TOTAL NUM OF ANOMALIES, NUM OF TEMP ANOMALIES, NUM OF MOISTURE ANOMALIES
+    response = ses.verify_email_identity(
+        EmailAddress='trainee.isaac.schaessens.coleman@sigmalabs.co.uk'
+    )
 
-    - CREATE FUNCTION WHICH SENDS AN EMAIL WHEN THE SCRIPT IS RAN
-    
-    
+    ses_client = boto3.client('ses',
+                              aws_access_key_id=ENV["AWS_PUBLIC_KEY"],
+                              aws_secret_access_key=ENV["AWS_PRIVATE_KEY"], region_name="eu-west-2")
 
-    """
+    response = ses_client.send_email(
+        Destination={
+            "ToAddresses": [
+                "trainee.isaac.schaessens.coleman@sigmalabs.co.uk",
+                "trainee.saniya.shaikh@sigmalabs.co.uk"
+            ],
+        },
+        Message={
+            "Body": {
+                "Html": {
+                    "Charset": "UTF-8",
+                    "Data": email_html,
+                }
+            },
+            "Subject": {
+                "Charset": "UTF-8",
+                "Data": "Hourly Plant Anomaly Update",
+            },
+        },
+        Source="trainee.isaac.schaessens.coleman@sigmalabs.co.uk",
+    )
