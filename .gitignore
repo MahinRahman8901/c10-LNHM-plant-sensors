@@ -159,3 +159,7 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 pipeline/plants_data.csv
+terraform/terraform.tfvars
+terraform/.terraform.lock.hcl
+terraform/terraform.tfstate
+terraform/.terraform
