@@ -62,7 +62,7 @@ def search_anomalies(data: list[dict]):
     return anomalies
 
 
-def plant_anomaly_info(anomalies: list[dict]):
+def plant_anomaly_info(conn, anomalies: list[dict]):
     """This function takes in a list of dictionaries which each represent
     the rows from a plant measurement database, where there are anomalies in either 
     the temperature or soil moisture from the last hour.
@@ -70,6 +70,9 @@ def plant_anomaly_info(anomalies: list[dict]):
     the total number of anomalies, total number of temperature anomalies and total number
         of soil moisture anomalies (in the last hour).
         e.g. {'plant_id': 47, 'temp_anomaly_num': 1, 'moisture_anomaly_num': 76, 'total_anomaly_num': 77}"""
+
+    plant_id_name_dict = get_plant_id_name_dict(conn)
+    print(plant_id_name_dict)
 
     # dataframe with each row being representing a plant with an anomaly (from the last hour)
     anomaly_df = pd.DataFrame(anomalies)
@@ -79,6 +82,9 @@ def plant_anomaly_info(anomalies: list[dict]):
 
     anomaly_info = []
     for plant_id in plant_ids_with_anomalies:
+        print(type(plant_id))
+        print(plant_id_name_dict[plant_id])
+        print(type(plant_id_name_dict[plant_id]))
 
         # Dataframe with anomaly rows for specific plant id
         plant_id_df = anomaly_df[anomaly_df['plant_id'] == plant_id]
@@ -91,7 +97,7 @@ def plant_anomaly_info(anomalies: list[dict]):
         plant_id_moisture_df = plant_id_df[plant_id_df["moisture_anomaly"] == True]
         num_of_moisture_anomalies = len(plant_id_moisture_df.index)
 
-        anomaly_info.append({"plant_id": plant_id, "temp_anomaly_num": num_of_temp_anomalies,
+        anomaly_info.append({"plant_id": plant_id, "plant_name": plant_id_name_dict[plant_id], "temp_anomaly_num": num_of_temp_anomalies,
                             "moisture_anomaly_num": num_of_moisture_anomalies, "total_anomaly_num": num_of_temp_anomalies+num_of_moisture_anomalies})
 
     return sorted(
@@ -102,10 +108,24 @@ def get_plant_id_name_dict(conn) -> dict:
     """This function returns a dictionary with the plant ids as keys
     and the plant name as the values """
 
+    with conn.cursor(as_dict=True) as cur:
+        query = "SELECT PlantID, Name FROM s_epsilon.Plant;"
+        cur.execute(query)
+        db_list = cur.fetchall()
+
+    plant_id_name_dict = {}
+    for dict in db_list:
+        plant_id_name_dict[dict['PlantID']] = dict['Name']
+
+    return plant_id_name_dict
+
 
 def email_text(anomaly_data: list[dict]) -> str:
     """This function accepts a list of dictionaries of anomaly data for plants
      and returns a html formatted string intended for an email. """
+
+    html_string = """
+"""
 
     pass
 
@@ -131,11 +151,11 @@ if __name__ == "__main__":
     else:
         print("No data retrieved from the database.")
 
-    conn.close()
-
-    plant_anomaly_info = plant_anomaly_info(anomalies)
+    plant_anomaly_info = plant_anomaly_info(conn, anomalies)
 
     print(plant_anomaly_info)
+
+    conn.close()
 
     """
     TO DO :
