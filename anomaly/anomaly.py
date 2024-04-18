@@ -74,7 +74,7 @@ if __name__ == "__main__":
     if data:
         print("Data retrieved successfully.")
         anomalies = search_anomalies(data)
-        # Check if anomalies are found
+        # Check anomalies
         if anomalies:
             print("Anomalies detected:", anomalies)
         else:
