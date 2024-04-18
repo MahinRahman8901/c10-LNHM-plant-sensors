@@ -1,13 +1,9 @@
-import csv
+'''This script sends emails based on anomalies from the data.'''
+import datetime
+from os import environ as ENV
+
 import numpy as np
 import boto3
-import datetime
-from decimal import Decimal
-
-import boto3
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-from os import environ as ENV
 from dotenv import load_dotenv
 from pymssql import connect
 import pandas as pd
@@ -73,19 +69,14 @@ def plant_anomaly_info(conn, anomalies: list[dict]):
         e.g. {'plant_id': 47, 'temp_anomaly_num': 1, 'moisture_anomaly_num': 76, 'total_anomaly_num': 77}"""
 
     plant_id_name_dict = get_plant_id_name_dict(conn)
-    print(plant_id_name_dict)
 
     # dataframe with each row being representing a plant with an anomaly (from the last hour)
     anomaly_df = pd.DataFrame(anomalies)
 
     plant_ids_with_anomalies = anomaly_df["plant_id"].unique()
-    print(plant_ids_with_anomalies)
 
     anomaly_info = []
     for plant_id in plant_ids_with_anomalies:
-        print(type(plant_id))
-        print(plant_id_name_dict[plant_id])
-        print(type(plant_id_name_dict[plant_id]))
 
         # Dataframe with anomaly rows for specific plant id
         plant_id_df = anomaly_df[anomaly_df['plant_id'] == plant_id]
@@ -171,17 +162,14 @@ def email_html(anomaly_data: list[dict]) -> str:
 if __name__ == "__main__":
     load_dotenv()
 
-    # Establish database connection
-    conn = get_database_connection(ENV)
+    connection = get_database_connection(ENV)
 
-    # Fetch data from the database
-    data = fetch_data_from_last_hour(conn)
+    last_hours_data = fetch_data_from_last_hour(connection)
 
     # Check if data is retrieved properly
-    if data:
+    if last_hours_data:
         print("Data retrieved successfully.")
-        anomalies = search_anomalies(data)
-        # Check anomalies
+        anomalies = search_anomalies(last_hours_data)
         if anomalies:
             print("Anomalies detected:")
         else:
@@ -189,17 +177,12 @@ if __name__ == "__main__":
     else:
         print("No data retrieved from the database.")
 
-    # The data used in the email
-    plant_anomaly_info = plant_anomaly_info(conn, anomalies)
+    plant_anomaly_info = plant_anomaly_info(connection, anomalies)
 
-    # The html for the email as a string
     email_html = email_html(plant_anomaly_info)
 
-    conn.close()
+    connection.close()
 
-    import boto3
-
-    # Create SES client
     ses = boto3.client('ses')
 
     response = ses.verify_email_identity(
