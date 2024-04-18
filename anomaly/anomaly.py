@@ -120,14 +120,51 @@ def get_plant_id_name_dict(conn) -> dict:
     return plant_id_name_dict
 
 
-def email_text(anomaly_data: list[dict]) -> str:
+def email_html(anomaly_data: list[dict]) -> str:
     """This function accepts a list of dictionaries of anomaly data for plants
      and returns a html formatted string intended for an email. """
 
-    html_string = """
-"""
+    current_datetime = datetime.datetime.now()
+    one_hour_ago = current_datetime - datetime.timedelta(hours=1)
 
-    pass
+    html_table_sub_string = ""
+    for plant in anomaly_data:
+        html_table_sub_string += f"""<tr>
+                                    <td>{plant["plant_id"]}</td>
+                                    <td>{plant["plant_name"]}</td>
+                                    <td>{plant["total_anomaly_num"]}</td>
+                                    <td>{plant["temp_anomaly_num"]}</td>
+                                    <td>{plant["moisture_anomaly_num"]}</td>
+                                    </tr>"""
+
+    html_string = f"""
+
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>Anomaly Report from the Hour</title>
+            </head>
+            <body>
+                <h1>Anomaly Table</h1>
+                <p>Here is a table of measurement anomalies of the plants in the last hour  ({datetime.datetime.strftime(current_datetime, "%H:%M:%S")} to {datetime.datetime.strftime(one_hour_ago, "%H:%M:%S")}).</p>
+ 
+                <table>
+                    <tr>
+                        <th>Plant ID</th>
+                        <th>Plant Name</th>
+                        <th>Total Number of Anomalies</th>
+                        <th>Number of Temperature Anomalies</th>
+                        <th>Number of Soil Moisture Anomalies</th>
+                    </tr>
+    
+                    {html_table_sub_string}
+                </table>
+
+            </body>
+            </html>
+                    """
+
+    return html_string
 
 
 if __name__ == "__main__":
@@ -151,9 +188,11 @@ if __name__ == "__main__":
     else:
         print("No data retrieved from the database.")
 
+    # The data used in the email
     plant_anomaly_info = plant_anomaly_info(conn, anomalies)
 
-    print(plant_anomaly_info)
+    # The html for the email as a string
+    email_html = email_html(plant_anomaly_info)
 
     conn.close()
 
