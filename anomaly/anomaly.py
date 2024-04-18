@@ -1,6 +1,8 @@
 import csv
 import numpy as np
 import boto3
+import datetime
+from decimal import Decimal
 
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -59,15 +61,6 @@ def search_anomalies(data: list[dict]):
     return anomalies
 
 
-def write_data_to_csv(data, filename):
-    """Writes data to a CSV file."""
-    with open(filename, 'w', newline='') as csvfile:
-        fieldnames = data[0].keys()
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        writer.writeheader()
-        writer.writerows(data)
-
-
 if __name__ == "__main__":
     load_dotenv()
 
@@ -80,20 +73,13 @@ if __name__ == "__main__":
     # Check if data is retrieved properly
     if data:
         print("Data retrieved successfully.")
-
-        # Search for anomalies in the data
         anomalies = search_anomalies(data)
-
         # Check if anomalies are found
         if anomalies:
             print("Anomalies detected:", anomalies)
-            # Write anomalies to a CSV file
-            write_data_to_csv(anomalies, "anomaly.csv")
-            print("Anomalies written to 'data.csv'.")
         else:
             print("No anomalies detected.")
     else:
         print("No data retrieved from the database.")
 
-    # Close database connection
     conn.close()
