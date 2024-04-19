@@ -2,6 +2,44 @@
 
 # README
 
+## About
+
+The Liverpool Natural History Museum is expanding its focus to include botanical science with the introduction of a new botanical wing in 2023. To support this initiative, the museum requires a robust system to monitor the health of plants in their conservatory. This GitHub repository documents the development and implementation of the Plant Health Monitoring System.
+
+## Problem Statement
+
+The current system only provides real-time data via a simple API endpoint, limiting the museum's ability to monitor plant health over time and detect issues promptly. To address this, the museum requires:
+
+- A comprehensive data pipeline hosted in the cloud.
+- Short-term and long-term storage solutions for plant data.
+- Visualization capabilities to view real-time and historical plant data.
+
+## Hardware
+
+The museum has invested in an array of sensors connected to a Raspberry Pi to monitor environmental factors affecting plant growth. However, the current setup faces challenges such as data reliability issues.
+
+## Deliverables
+
+### Data Pipeline
+
+- Extract data from the provided API endpoint for each plant every minute.
+- Clean and verify data before storing it in a fully normalized database.
+
+### Short-Term Storage
+
+- Host the past 24 hours of data in a temporary database solution to manage costs.
+- Export older data to long-term storage.
+
+### Long-Term Storage
+
+- Host all data older than 24 hours in a cost-efficient long-term data-storage solution.
+
+### Visualization
+
+- Real-time visualization of plant data.
+- Graphical representation of temperature and moisture readings for each plant.
+- Access to historical data stored in long-term storage.
+
 ## Pipeline
 
 The `pipeline.py` script orchestrates the entire data pipeline process. It asynchronously fetches plant data from the provided API endpoint, cleans the data, and inserts it into the database. The script handles extraction, transformation, and loading of data in a seamless manner.
@@ -48,45 +86,6 @@ For this we have a `create_tables.sh` that runs the `schema.sql` into the databa
 
 For this we have a `seed_data.sh` which will run the `seed.sql` script into the database, therefore inserting all the static data into the tables within the database as well.
 
-
-## About
-
-The Liverpool Natural History Museum is expanding its focus to include botanical science with the introduction of a new botanical wing in 2023. To support this initiative, the museum requires a robust system to monitor the health of plants in their conservatory. This GitHub repository documents the development and implementation of the Plant Health Monitoring System.
-
-## Problem Statement
-
-The current system only provides real-time data via a simple API endpoint, limiting the museum's ability to monitor plant health over time and detect issues promptly. To address this, the museum requires:
-
-- A comprehensive data pipeline hosted in the cloud.
-- Short-term and long-term storage solutions for plant data.
-- Visualization capabilities to view real-time and historical plant data.
-
-## Hardware
-
-The museum has invested in an array of sensors connected to a Raspberry Pi to monitor environmental factors affecting plant growth. However, the current setup faces challenges such as data reliability issues.
-
-## Deliverables
-
-### Data Pipeline
-
-- Extract data from the provided API endpoint for each plant every minute.
-- Clean and verify data before storing it in a fully normalized database.
-
-### Short-Term Storage
-
-- Host the past 24 hours of data in a temporary database solution to manage costs.
-- Export older data to long-term storage.
-
-### Long-Term Storage
-
-- Host all data older than 24 hours in a cost-efficient long-term data-storage solution.
-
-### Visualization
-
-- Real-time visualization of plant data.
-- Graphical representation of temperature and moisture readings for each plant.
-- Access to historical data stored in long-term storage.
-
 ## Diagrams 
 
 ### ERD Diagram
@@ -114,6 +113,64 @@ The museum has invested in an array of sensors connected to a Raspberry Pi to mo
 ### Data Sources
 - **Database:** The app retrieves real-time plant data from a database using SQL queries.
 - **S3 Bucket:** Historical plant data is obtained from an S3 bucket, allowing for long-term analysis.
+
+## Terraform
+
+This repository contains Terraform scripts to provision Lambda functions on AWS for various purposes related to managing plant data.
+
+- Lambda Functions for Anomaly Detection `anomaly.tf`
+  - This file will spin up a lambda function that searches the anomalies in the rds and then sends the email to the clients letting them know where the anomalies are
+- Lambda Functions for Archiving `archive.tf`
+  - This file will create a lambda function which takes any data from the rds thats greater than 24 hours and put it in an s3 and clean the rds of any of the data it has taken out. This occures every 24 hours
+- Lambda Functions for RDS Insertion `short-term-rds`
+  - This file will create a lambda function that runs every minute and takes data from the api and inserts it into the SQL database that we have created
+ 
+### Dependencies
+
+There is also a file called `variables.tf`. In order to create the terraformed functions you must make sure you have a `terraform.tfvars` that contains the values associated with the variables in order for the commands to run the terraform to work
+This will include all the env files and both AWS Access and Security Keys
+
+| Variable Name           | Description                   |
+|-------------------------|-------------------------------|
+| AWS_ACCESS_KEY_ID       | AWS Access Key ID             |
+| AWS_SECRET_ACCESS_KEY   | AWS Secret Access Key         |
+| DB_USER                 | Database User                 |
+| DB_PASSWORD             | Database Password             |
+| DB_SCHEMA               | Database Schema               |
+| DB_HOST                 | Database Host                 |
+| DB_PORT                 | Database Port                 |
+| DB_NAME                 | Database Name                 |
+
+## Prerequisites
+
+1. **Terraform Installed**: Ensure Terraform is installed on your machine. Download it from [Terraform's official website](https://www.terraform.io/downloads.html) and follow the installation instructions.
+   
+2. **AWS Credentials**: Have your AWS access key ID and secret access key ready. These credentials will be used by Terraform to authenticate with AWS.
+
+## Running Terraform
+
+1. **Navigate to Directory**: Open a terminal and navigate to the directory where your Terraform scripts are located.
+
+2. **Initialize Terraform**: Run `terraform init` to initialize Terraform in the directory. This will download any necessary plugins and modules.
+
+3. **Review Terraform Plan**: Run `terraform plan` to see what changes Terraform will make to your infrastructure. Review the plan to ensure it aligns with your expectations.
+
+4. **Apply Terraform Changes**: If the plan looks good, apply the changes by running `terraform apply`. Terraform will prompt you to confirm the changes before applying them.
+
+5. **Monitor Progress**: During the apply process, Terraform will display the progress and any errors encountered. Monitor the output closely.
+
+
+## Destroying Infrastructure
+
+
+1. **Navigate to Directory**: Open a terminal and navigate to the directory where your Terraform scripts are located.
+
+2. **Run Terraform Destroy**: Run `terraform destroy` to destroy all resources managed by Terraform. Terraform will prompt you to confirm the destruction of resources.
+
+3. **Confirm Destruction**: Confirm the destruction by typing `yes` when prompted. Terraform will begin destroying the infrastructure.
+
+4. **Monitor Progress**: During the destroy process, Terraform will display the progress and any errors encountered. Monitor the output closely.
+
 
 
 
