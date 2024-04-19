@@ -18,9 +18,10 @@ data "aws_iam_policy_document" "lambda-role-policy" {
 }
 
 resource "aws_iam_role" "lambda-role" {
-  name               = "c10-epsilon-lambda-test"
+  name               = "c10-epsilon-lambda-short-term"
   assume_role_policy = data.aws_iam_policy_document.lambda-role-policy.json
 }
+
 
 data "aws_ecr_repository" "lambda-ecr-repo" {
   name = "c10-epsilon-plant-pipeline"
@@ -36,4 +37,18 @@ resource "aws_lambda_function" "example-lambda" {
     function_name = "c10-epsilon-terraform-lambda-test"
     package_type = "Image"
     image_uri = data.aws_ecr_image.lambda-image.image_uri
+
+    environment {
+    variables = {
+      DB_USER="epsilon"
+    DB_PASSWORD="epsilon1"
+    DB_SCHEMA="s_epsilon"
+    DB_HOST="c10-plant-database.c57vkec7dkkx.eu-west-2.rds.amazonaws.com"
+    DB_PORT="1433"
+    DB_NAME="plants"
+    }
+  }
+
+  timeout = 60 
 }
+
