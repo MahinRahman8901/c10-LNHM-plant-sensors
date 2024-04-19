@@ -14,26 +14,38 @@ data "aws_iam_policy_document" "lambda_role_policy" {
 resource "aws_iam_role" "iam_for_lambda" {
   name               = "c10-epsilon-anomaly-terraform-lambda-role"
   assume_role_policy = data.aws_iam_policy_document.lambda_role_policy.json
+
+}
+
+data "aws_ecr_repository" "lambda-ecr-repo3" {
+  name = "c10-epsilon-plant-anomaly"
+}
+
+
+data "aws_ecr_image" "lambda-image3" {
+  repository_name = data.aws_ecr_repository.lambda-ecr-repo3.name
+  image_tag       = "latest"
 }
 
 resource "aws_lambda_function" "anomaly_lambda_function" {
-
-    function_name = "c10-epsilon-plant-anomaly-lambda-tf"
-    role = aws_iam_role.iam_for_lambda.arn
-    image_uri = "129033205317.dkr.ecr.eu-west-2.amazonaws.com/c10-epsilon-plant-anomaly:latest"
-    environment {
+  function_name = "c10-epsilon-plant-anomaly-lambda-tf"
+  role = aws_iam_role.iam_for_lambda.arn
+  package_type = "Image"
+  image_uri = data.aws_ecr_image.lambda-image3.image_uri
+  environment {
     variables = {
-    DB_USER="epsilon"
-    DB_PASSWORD="epsilon1"
-    DB_SCHEMA="s_epsilon"
-    DB_HOST="c10-plant-database.c57vkec7dkkx.eu-west-2.rds.amazonaws.com"
-    DB_PORT="1433"
-    DB_NAME="plants"
-    AWS_PUBLIC_KEY=variable.AWS_ACCESS_KEY_ID
-    AWS_PRIVATE_KEY=variable.AWS_SECRET_ACCESS_KEY
+      DB_USER="epsilon"
+      DB_PASSWORD="epsilon1"
+      DB_SCHEMA="s_epsilon"
+      DB_HOST="c10-plant-database.c57vkec7dkkx.eu-west-2.rds.amazonaws.com"
+      DB_PORT="1433"
+      DB_NAME="plants"
     }
+  }
 }
-}
+
+
+
 
 # Event Scheduling
 
