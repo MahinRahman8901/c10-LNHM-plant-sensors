@@ -36,15 +36,16 @@ def search_anomalies(data: list[dict]):
     anomalies = []
     moisture_values = [row['SoilMoisture'] for row in data]
     temperature_values = [row['Temperature'] for row in data]
-    moisture_deviation = np.std(moisture_values)
-    temperature_deviation = np.std(temperature_values)
-
+    moisture_deviation = 2 * np.std(moisture_values)
+    temperature_deviation = 2 * np.std(temperature_values)
+    temperature_mean = np.mean(temperature_values)
+    moisture_mean = np.mean(moisture_values)
     for row in data:
         moisture_anomaly = False
         temperature_anomaly = False
-        if abs(row['SoilMoisture'] - np.mean(moisture_values)) > 2 * moisture_deviation:
+        if abs(row['SoilMoisture'] - moisture_mean) > moisture_deviation:
             moisture_anomaly = True
-        if abs(row['Temperature'] - np.mean(temperature_values)) > 2 * temperature_deviation:
+        if abs(row['Temperature'] - temperature_mean) > temperature_deviation:
             temperature_anomaly = True
         if moisture_anomaly or temperature_anomaly:
             anomalies.append({
@@ -160,6 +161,7 @@ def email_html(anomaly_data: list[dict]) -> str:
 
 
 if __name__ == "__main__":
+
     load_dotenv()
 
     connection = get_database_connection(ENV)
@@ -183,12 +185,6 @@ if __name__ == "__main__":
 
     connection.close()
 
-    ses = boto3.client('ses')
-
-    response = ses.verify_email_identity(
-        EmailAddress='trainee.isaac.schaessens.coleman@sigmalabs.co.uk'
-    )
-
     ses_client = boto3.client('ses',
                               aws_access_key_id=ENV["AWS_PUBLIC_KEY"],
                               aws_secret_access_key=ENV["AWS_PRIVATE_KEY"], region_name="eu-west-2")
@@ -197,7 +193,8 @@ if __name__ == "__main__":
         Destination={
             "ToAddresses": [
                 "trainee.isaac.schaessens.coleman@sigmalabs.co.uk",
-                "trainee.saniya.shaikh@sigmalabs.co.uk"
+                "trainee.saniya.shaikh@sigmalabs.co.uk",
+                "trainee.mahin.rahman@sigmalabs.co.uk"
             ],
         },
         Message={
