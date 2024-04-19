@@ -2,13 +2,33 @@
 
 ## Pipeline
 
-### Data Extraction Sript
+The `pipeline.py` script orchestrates the entire data pipeline process. It asynchronously fetches plant data from the provided API endpoint, cleans the data, and inserts it into the database. The script handles extraction, transformation, and loading of data in a seamless manner.
 
-The `extract.py` script fetches plant data from the provided API endpoint. It retrieves information such as soil moisture, temperature, humidity, and light intensity for each plant and stores it in a CSV file.
+## Overview
 
-### Data Cleaning Script
+The pipeline script consists of several steps:
 
-The `transform.py` script utilises pandas to clean and standardise the data extracted from the CSV file. It rounds numerical values to two decimal places, standardises plant names, separates the origin location into individual columns (town, country code, continent, city), and removes any null values. The cleaned data is then saved back to the CSV file.
+1. **Extract**: Asynchronously fetches plant data from an external API (`API_URL`) for each plant ID in the range 1 to 50.
+
+2. **Transform**: Cleans the retrieved data, converting numerical values to float and rounding to 2 decimal places. It also standardises plant names and removes punctuation.
+
+3. **Load**: Inserts the cleaned data into a Relational Database. It first establishes a database connection using the provided environment variables and then constructs SQL query strings to insert the data into the database.
+
+## Asynchronous Data Extraction
+
+The script utilises aiohttp library for asynchronous HTTP requests, allowing it to fetch data from the API efficiently. Each plant's data is extracted concurrently, improving the overall performance of the extraction process and overall speed of requests.
+
+## Data Cleaning
+
+After fetching the data, the script performs cleaning operations to ensure consistency and data integrity. It converts numerical values to floats, rounds them to two decimal places, and standardises plant names.
+
+## Database Interaction
+
+The script establishes a database connection using the provided environment variables and inserts the cleaned data into the Database. It constructs SQL query strings dynamically based on the cleaned data and executes them to insert the data into the database.
+
+## Logging and Error Handling
+
+The script utilizes the logging module to log important events and errors during the execution process. This helps in debugging and monitoring the pipeline's performance.
 
 ## BASH Database Scripts
 
@@ -75,7 +95,27 @@ The museum has invested in an array of sensors connected to a Raspberry Pi to mo
 
 ![System Architecture Diagram](https://github.com/MahinRahman8901/c10-LNHM-plant-sensors/blob/main/images/System%20Architecture.png?raw=true)
 
+## LMNH Plant Health Dashboard (Streamlit)
 
+![Streamlit Dashboard](https://github.com/MahinRahman8901/c10-LNHM-plant-sensors/blob/main/images/Streamlit.png?raw=true)
+
+### Features
+- **Real-time Monitoring:** View the latest temperature and soil moisture readings for each plant.
+- **Historical Analysis:** Explore temperature and soil moisture trends over the past 24 hours and over time for individual plants.
+- **Statistical Insights:** Obtain statistical summaries such as the number of plants, botanists, origins, as well as extreme values for temperature and soil moisture.
+
+### Usage
+- Upon launching the app, you'll be presented with a sidebar to select a specific plant ID.
+- The main dashboard displays various visualizations including temperature and soil moisture charts.
+- Additionally, you can explore statistical summaries and extreme values in the metrics section.
+
+### Data Sources
+- **Database:** The app retrieves real-time plant data from a database using SQL queries.
+- **S3 Bucket:** Historical plant data is obtained from an S3 bucket, allowing for long-term analysis.
+
+
+
+## Setup
 To contribute to the project, follow these steps:
 
 1. Clone the repository.
