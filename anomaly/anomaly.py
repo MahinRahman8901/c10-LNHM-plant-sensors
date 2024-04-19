@@ -2,11 +2,23 @@
 import datetime
 from os import environ as ENV
 
+import json
 import numpy as np
 import boto3
 from dotenv import load_dotenv
 from pymssql import connect
 import pandas as pd
+
+
+def handler(event, context) -> dict:
+    """event handler"""
+
+    main()
+
+    return {
+        'statusCode': 200,
+        'body': json.dumps({"response": "Data has been processed"})
+    }
 
 
 def get_database_connection(config):
@@ -160,7 +172,8 @@ def email_html(anomaly_data: list[dict]) -> str:
     return html_string
 
 
-if __name__ == "__main__":
+def main():
+    """Main function (script)."""
 
     load_dotenv()
 
@@ -179,9 +192,9 @@ if __name__ == "__main__":
     else:
         print("No data retrieved from the database.")
 
-    plant_anomaly_info = plant_anomaly_info(connection, anomalies)
+    plant_anomaly_list = plant_anomaly_info(connection, anomalies)
 
-    email_html = email_html(plant_anomaly_info)
+    email_html_string = email_html(plant_anomaly_list)
 
     connection.close()
 
@@ -193,15 +206,15 @@ if __name__ == "__main__":
         Destination={
             "ToAddresses": [
                 "trainee.isaac.schaessens.coleman@sigmalabs.co.uk",
-                "trainee.saniya.shaikh@sigmalabs.co.uk",
-                "trainee.mahin.rahman@sigmalabs.co.uk"
+                "trainee.mahin.rahman@sigmalabs.co.uk",
+                "trainee.saniya.shaikh@sigmalabs.co.uk"
             ],
         },
         Message={
             "Body": {
                 "Html": {
                     "Charset": "UTF-8",
-                    "Data": email_html,
+                    "Data": email_html_string,
                 }
             },
             "Subject": {
