@@ -1,3 +1,5 @@
+#LMNH Plant Pipeline
+
 # README
 
 ## Pipeline
