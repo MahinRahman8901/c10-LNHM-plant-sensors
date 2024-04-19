@@ -2,11 +2,23 @@
 import datetime
 from os import environ as ENV
 
+import json
 import numpy as np
 import boto3
 from dotenv import load_dotenv
 from pymssql import connect
 import pandas as pd
+
+
+def handler(event, context) -> dict:
+    """event handler"""
+
+    main()
+
+    return {
+        'statusCode': 200,
+        'body': json.dumps({"response": "Data has been processed"})
+    }
 
 
 def get_database_connection(config):
@@ -36,15 +48,16 @@ def search_anomalies(data: list[dict]):
     anomalies = []
     moisture_values = [row['SoilMoisture'] for row in data]
     temperature_values = [row['Temperature'] for row in data]
-    moisture_deviation = np.std(moisture_values)
-    temperature_deviation = np.std(temperature_values)
-
+    moisture_deviation = 2 * np.std(moisture_values)
+    temperature_deviation = 2 * np.std(temperature_values)
+    temperature_mean = np.mean(temperature_values)
+    moisture_mean = np.mean(moisture_values)
     for row in data:
         moisture_anomaly = False
         temperature_anomaly = False
-        if abs(row['SoilMoisture'] - np.mean(moisture_values)) > 2 * moisture_deviation:
+        if abs(row['SoilMoisture'] - moisture_mean) > moisture_deviation:
             moisture_anomaly = True
-        if abs(row['Temperature'] - np.mean(temperature_values)) > 2 * temperature_deviation:
+        if abs(row['Temperature'] - temperature_mean) > temperature_deviation:
             temperature_anomaly = True
         if moisture_anomaly or temperature_anomaly:
             anomalies.append({
@@ -159,7 +172,9 @@ def email_html(anomaly_data: list[dict]) -> str:
     return html_string
 
 
-if __name__ == "__main__":
+def main():
+    """Main function (script)."""
+
     load_dotenv()
 
     connection = get_database_connection(ENV)
@@ -177,17 +192,11 @@ if __name__ == "__main__":
     else:
         print("No data retrieved from the database.")
 
-    plant_anomaly_info = plant_anomaly_info(connection, anomalies)
+    plant_anomaly_list = plant_anomaly_info(connection, anomalies)
 
-    email_html = email_html(plant_anomaly_info)
+    email_html_string = email_html(plant_anomaly_list)
 
     connection.close()
-
-    ses = boto3.client('ses')
-
-    response = ses.verify_email_identity(
-        EmailAddress='trainee.isaac.schaessens.coleman@sigmalabs.co.uk'
-    )
 
     ses_client = boto3.client('ses',
                               aws_access_key_id=ENV["AWS_PUBLIC_KEY"],
@@ -197,6 +206,7 @@ if __name__ == "__main__":
         Destination={
             "ToAddresses": [
                 "trainee.isaac.schaessens.coleman@sigmalabs.co.uk",
+                "trainee.mahin.rahman@sigmalabs.co.uk",
                 "trainee.saniya.shaikh@sigmalabs.co.uk"
             ],
         },
@@ -204,7 +214,7 @@ if __name__ == "__main__":
             "Body": {
                 "Html": {
                     "Charset": "UTF-8",
-                    "Data": email_html,
+                    "Data": email_html_string,
                 }
             },
             "Subject": {
