@@ -1,4 +1,4 @@
-data "aws_iam_policy_document" "lambda-role-policy" {
+data "aws_iam_policy_document" "lambda_role_policy" {
   statement {
     effect = "Allow"
 
@@ -13,7 +13,7 @@ data "aws_iam_policy_document" "lambda-role-policy" {
 
 resource "aws_iam_role" "iam_for_lambda" {
   name               = "c10-epsilon-anomaly-terraform-lambda-role"
-  assume_role_policy = data.aws_iam_policy_document.lambda-role-policy.json
+  assume_role_policy = data.aws_iam_policy_document.lambda_role_policy.json
 }
 
 resource "aws_lambda_function" "anomaly_lambda_function" {
@@ -37,6 +37,45 @@ resource "aws_lambda_function" "anomaly_lambda_function" {
 
 # Event Scheduling
 
+data  "aws_iam_policy_document" "anomaly_schedule_trust_policy" {
+
+    statement {
+        effect = "Allow"
+
+        principals {
+            type        = "Service"
+            identifiers = ["scheduler.amazonaws.com"]
+        }
+
+        actions = ["sts:AssumeRole"]
+    }
+}
+
+# A permissions policy that allows things-attached-to-the-attached-role to do things
+data  "aws_iam_policy_document" "anomaly_schedule_permissions_policy" {
+
+    statement {
+        effect = "Allow"
+
+        resources = [
+            aws_lambda_function.anomaly_lambda_function.arn
+        ]
+
+        actions = ["lambda:InvokeFunction"]
+    }
+}
+
+
+# A role (which needs permissions & trust to actually do anything)
+resource "aws_iam_role" "anomaly-schedule-role" {
+    name               = "c10-epsilon-anomaly-schedule-role-tf"
+    assume_role_policy = data.aws_iam_policy_document.anomaly_schedule_trust_policy.json # trust policy
+    inline_policy {
+      name = "c10-epsilon-inline-lambda-anomaly-execution-policy"
+      policy = data.aws_iam_policy_document.anomaly_schedule_permissions_policy.json
+    } # permissions policy
+}
+
 
 
 resource "aws_scheduler_schedule" "example" {
@@ -50,7 +89,7 @@ resource "aws_scheduler_schedule" "example" {
   schedule_expression = "rate(1 hours)"
 
   target {
-    arn      = aws_sqs_queue.example.arn
-    role_arn = aws_iam_role.example.arn
+    arn      = aws_lambda_function.anomaly_lambda_function.arn
+    role_arn = aws_iam_role.anomaly-schedule-role.arn
   }
 }
