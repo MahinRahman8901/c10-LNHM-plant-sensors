@@ -34,12 +34,12 @@ resource "aws_lambda_function" "anomaly_lambda_function" {
   image_uri = data.aws_ecr_image.lambda-image3.image_uri
   environment {
     variables = {
-      DB_USER="epsilon"
-      DB_PASSWORD="epsilon1"
-      DB_SCHEMA="s_epsilon"
-      DB_HOST="c10-plant-database.c57vkec7dkkx.eu-west-2.rds.amazonaws.com"
-      DB_PORT="1433"
-      DB_NAME="plants"
+      DB_USER=var.DB_USER
+      DB_PASSWORD=var.DB_PASSWORD
+      DB_SCHEMA=var.DB_SCHEMA
+      DB_HOST=var.DB_HOST
+      DB_PORT=var.DB_PORT
+      DB_NAME=var.DB_NAME
     }
   }
 }
