@@ -98,6 +98,10 @@ For this we have a `seed_data.sh` which will run the `seed.sql` script into the 
 
 ## LMNH Plant Health Dashboard (Streamlit)
 
+### Deployment
+
+Access to Dashboard via ECS: [Streamlit Dashboard](http://35.178.100.119:8501/)
+
 ![Streamlit Dashboard](https://github.com/MahinRahman8901/c10-LNHM-plant-sensors/blob/main/images/Streamlit.png?raw=true)
 
 ### Features
